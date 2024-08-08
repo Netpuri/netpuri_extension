@@ -1,0 +1,360 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    margin: 0px;
+    min-height: 100vh;
+    line-height: 0.4;
+
+    
+    width: 450px;
+    height: 600px;
+}
+
+nav {
+    display: flex;
+    width: 450px;
+    padding: 30px 30px 0px 30px;
+    margin: 0px 0px 25px 0px;
+}
+
+
+/* nav */
+.close {
+        font-size: 15px;
+        font-weight: 200;
+        color: #B6B6B6;
+}
+
+
+.name {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0px auto;
+    color: #2273FF;
+}
+
+
+/* menu */
+.backGround {
+    background-color: #F8F8F8;
+    width: 428px;
+    height: 472px;
+    margin: 0 auto;
+    border-radius: 25px;
+}
+
+.menuContainer {
+    width: 428px;
+    height: 42px;
+    background-color: #F8F8F8;
+    border-radius: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin: 0px auto;
+ position: relative;
+}
+
+
+
+  
+
+.selectedMenu {    
+   position :absolute; 
+    width: 50%; 
+    height: 32px;
+    background-color: #2273FF;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: left 200ms ;
+    z-index: 1;
+}
+ 
+@keyframes slideLeft {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideRight {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+/* Filtering.module.css */
+/* .slideLeft {
+    animation: slideLeft 0.5s forwards;
+  }
+  
+  .slideRight {
+    animation: slideRight 0.5s forwards;
+  }
+  
+  @keyframes slideLeft {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideRight {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  } */
+ 
+
+  
+  .slideLeft {
+    animation: slideLeft 0.5s forwards;
+  }
+  
+  .slideRight {
+    animation: slideRight 0.5s forwards;
+  }
+  
+  @keyframes slideLeft {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideRight {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  } 
+
+
+
+
+.unselectedMenu {
+    width: 50%;
+    height: 32px;
+    background-color: #F8F8F8;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu {
+    flex: 1;
+    text-align: center;
+    width: 178px;
+    margin: auto;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 3s ease;
+    cursor: pointer;
+  z-index: 2;
+  line-height: 32px;
+}
+
+.filteringMenu, .fishingMenu {
+    padding: 10px 0;
+  }
+
+.filteringMenu {
+    color: #FFFFFF;
+}
+
+.fishingMenu {
+    color: #4B4B4B;
+}
+
+/* 필터링 메뉴 선택 */
+.buttonContainer {
+    width: 428px;
+    height: 111px;
+    background-color: #DAE8FF;
+    margin: 10px auto;
+    border-radius: 25px;
+    padding: 18px 35px;
+}
+
+.button {
+    border: none;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 4px 5px;
+    padding: 0px 15px;
+    height: 30px;
+    text-align: center;
+    color: #9C9C9C;
+}
+
+.icon {
+    margin-left: 5px;
+}
+
+/* 필터링 링크 nav */
+.scrollBar {
+    height: 350px;
+    overflow-y: overlay;
+}
+
+.siteListContainer {
+    width: 387px;
+    height: 163px;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    margin: 10px auto;
+}
+
+.siteInfo {
+    display: flex;
+    padding: 15px 0px 0px 15px;
+}
+
+
+ /*  */ 
+.siteNew {
+    display: grid;
+    place-items: center; 
+    width: 37.62px;
+    height: 25.62px;
+    font-size: 12.62px;
+    color: #FFFFFF;
+    background-color: #2273FF;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.siteTime {
+    font-size: 12px;
+    color: #2273FF;
+    margin-left: 10px;
+}
+
+.dot {
+    font-size: 12px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #797979;
+}
+
+.siteType {
+    font-size: 12px;
+    color: #797979;
+}
+
+
+/* 설명 */
+.siteDetail {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    width: 265px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    text-align: left;
+    white-space: nowrap;
+    color:#4B4B4B;
+    padding: 0px 0px 0px 15px;
+}
+
+
+
+/* url */
+.linkTag {
+    display: flex;
+    background-color: #F0F0F0;
+    height: 56px;
+    width: 365px;
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: 0px 10px;
+}
+
+.linkThumbNail {
+    width: 38px;
+    height: 37px;
+    border-radius: 30px;
+    background-color: #000000;
+    margin: auto 0;
+}
+
+.typeDetail {
+    margin: auto 10px;
+    line-height: 0.3;
+}
+
+.linkType {
+    font-size: 15px;
+    color: #626262;
+    font-weight: 500;
+}
+
+.linkDetail {
+    font-size: 10px;
+    color: #969696;
+    font-weight: 500;
+}
+
+
+/* 스크롤바 */ 
+
+ .scrollBar::-webkit-scrollbar {
+    width: 7px;
+     height : 153px;
+    }
+
+
+.scrollBar::-webkit-scrollbar-track {
+    display:none;
+}
+
+
+.scrollBar::-webkit-scrollbar-thumb { 
+    border-radius: 3.5px;
+    background-color: #B6B6B6;
+    min-height: 30px;
+    max-height : 30px;
+    width: 10px;
+}
+
+.scrollBar::-webkit-scrollbar-button {
+    display: none;
+    
+}
+
+.scrollBar::-webkit-scrollbar-thumb:hover {
+    background-color: #9c9a9a; 
+}
+
+
+
+

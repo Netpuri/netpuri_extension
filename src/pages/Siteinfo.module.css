@@ -1,0 +1,131 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    margin: 0px;
+    min-height: 100vh;
+    line-height: 0.4;
+
+    width: 450px;
+    height: 600px;
+}
+
+nav {
+    display: flex;
+    width: 450px;
+    padding: 20px 30px 0px 30px;
+    margin: 0px 0px 25px 0px;
+}
+
+/* nav */
+.close {
+        font-size: 15px;
+        font-weight: 200;
+        color: #B6B6B6;
+}
+
+.name {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 10px auto;
+    color: #4B4B4B;
+}
+
+.arrow {
+    font-size: 20px;
+    font-weight: 100;
+    color: #B1B1B1;
+}
+
+/* container */
+.backGround {
+    width: 428px;
+    height: 515px;
+    background-color: #F8F8F8;
+    margin: 0 auto;
+    border-radius: 24px;
+}
+
+.siteContainer {
+    width: 100%;
+    height: 80px;
+    background-color: #F0F0F0;
+    border-radius: 24px;
+    display: flex;
+    padding: 0px 35px;
+}
+
+/* 사이트 정보 */
+.siteThumbNail {
+    width: 37.6px;
+    height: 37.6px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    margin: auto 0px;
+}
+
+.detailsContainer {
+    margin: auto 15px;
+}
+
+.siteDetails {
+    width: 220px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #4B4B4B;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.siteLinks {
+    font-size: 10px;
+    font-weight: 500;
+    color: #4B4B4B;
+    width: 168px;
+    line-height: 1;
+    margin-top: 3px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* 사이트 detail */
+.boxing {
+   padding: 15px 30px;
+}
+
+.detailBox {
+    margin: 0px 0px 30px 0px;
+}
+
+.detailIndex {
+    font-size: 12.62px;
+    font-weight: 600;
+    color:#4B4B4B;
+    line-height: 0.5;
+}
+
+.detailDes {
+    font-size: 12.62px;
+    font-weight: 400;
+    color:#757575;
+    line-height: 1.5;
+    width: 348px;
+    overflow-wrap: normal;
+}
+
+.detailOrg {
+    margin-top: 20px;
+    font-size: 12.62px;
+    font-weight: 400;
+    color:#757575;
+    line-height: 1.5;
+    width: 348px;
+    overflow-wrap: normal;
+    padding: 0px 6px;
+}

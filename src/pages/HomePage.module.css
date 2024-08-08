@@ -1,0 +1,224 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    margin: 0px;
+    min-height: 100vh;
+    line-height: 0.4;
+
+    width: 450px;
+    height: 600px;
+}
+
+nav {
+    display: flex;
+    width: 450px;
+    padding: 30px 30px 0px 30px;
+    margin: 0px 0px 25px 0px;
+}
+
+/* nav */
+.close {
+        font-size: 15px;
+        font-weight: 200;
+        color: #B6B6B6;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0px auto;
+    color: #2273FF;
+}
+
+/* menucontainer */
+.switchContainer {
+    position: relative;
+    z-index: 2;
+    width: 428px;
+    height: 438px;
+    border-radius: 25px;
+    background-color: #B3D0FF;
+    margin: 0px 11px;
+    padding-top: 0px;
+}
+
+.menuContainer {
+    position: absolute;
+    z-index: 1;
+    width: 428px;
+    height: 360px;
+    background-color: #DAE8FF;
+    margin: 0 auto;
+    border-radius: 25px;
+    padding: 18px 38px;
+}
+
+/* 필터링 */
+.title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2273FF;
+}
+
+/* 버튼 */
+.para {
+    margin: 25px 0px 0px 0px;
+}
+
+.Details {
+    display: flex;
+    align-items: center;
+}
+
+.title2 {
+    font-size: 15px;
+    font-weight: 500;
+    color: #4B4B4B;
+}
+
+.des {
+    font-size: 11px;
+    font-weight: 400;
+    color: #4B4B4B;
+    margin-left: 15px;
+}
+
+/* 버튼 스타일 */
+.homeButtons {
+    margin-right: 10px;
+    margin-top: 5px;
+    border-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    width: 60px;
+    height: 30px;
+    transition: background-color 0.2s;
+}
+
+/* 피싱 사이트 감지 */
+.fishingDetect {
+    position: absolute;
+    margin: 0px 25px auto;
+    bottom: 20px;
+    display: flex;
+}
+
+.fishingSite {
+    color: #2273FF;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.switch {
+    margin: 5px auto;
+    width: 55px;
+    height: 25.83px;
+    background-color: #F8F8F8;
+    border-radius: 30px;
+    position: relative;
+    margin-left: 215px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.toggle {
+    width: 22.5px;
+    height: 22.5px;
+    background-color: #FFFFFF;
+    filter: drop-shadow(0px 0px 1.5px #c7c7c7);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 2.5px;
+    transform: translateY(-50%);
+    transition: transform 0.3s;
+}
+
+.switch.on {
+    background-color: #2273FF;
+}
+
+.switch.on .toggle {
+    transform: translate(28px, -50%);
+}
+
+
+/* 통계 */
+.staticsInfo {
+    width: 428px;
+    height: 69px;
+    background-color: #F8F8F8;
+    display: flex;
+    border-radius: 25px;
+    margin: 13px 11px;
+    padding: 25px;
+}
+
+
+.static {
+    margin: 5px auto;
+    margin-right: 330px;
+    font-size: 15px;
+    color: #4B4B4B;
+    font-weight: 600;
+}
+
+
+.image {
+    width: 19px;
+    height: 19px;
+    margin: 0 auto;
+
+}
+
+
+/*  이미지 눌러서 화면 전환 시 애니메이션 추가 */
+
+
+/* .fade-enter {
+    opacity: 0;
+    transform: translateX(100%);
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+
+.fade-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+}
+
+
+.fade-exit {
+    opacity: 1;
+    transform: translateX(0);
+    position: absolute;
+    width: 100%; 
+}
+
+
+.fade-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 300ms, transform 300ms;
+}
+
+
+.page-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+
+
+ */

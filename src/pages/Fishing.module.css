@@ -1,0 +1,353 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    margin: 0px;
+    min-height: 100vh;
+    line-height: 0.4;
+
+    width: 450px;
+    height: 600px;
+}
+
+nav {
+    display: flex;
+    width: 450px;
+    padding: 30px 30px 0px 30px;
+    margin: 0px 0px 25px 0px;
+}
+
+/* nav */
+.close {
+        font-size: 15px;
+        font-weight: 200;
+        color: #B6B6B6;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0px auto;
+    color: #2273FF;
+    
+}
+
+
+/* menu */
+.menuContainer {
+    width: 428px;
+    height: 42px;
+    background-color: #F8F8F8;
+    border-radius: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin: 0px auto;
+  
+}
+
+.selectedMenu {
+   
+    width: 214px;
+    height: 32px;
+    background-color: #2273FF;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(0);
+    z-index: 1;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Filtering.module.css */
+.slideLeft {
+    animation: slideLeft 0.5s forwards;
+  }
+  
+  .slideRight {
+    animation: slideRight 0.5s forwards;
+  }
+  
+  /*selectedMenu의 슬라이딩 효과 */
+  @keyframes slideRight {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+
+  @keyframes slideLeft {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  } 
+  
+ 
+.selectedMenu {
+    transition : all 0.3s ease;
+}
+
+.unselectedMenu {
+    width: 50%;
+    height: 32px;
+    background-color: #F8F8F8;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu {
+    flex: 1;
+    text-align: center;
+    width: 178px;
+    margin: 0 auto;
+    font-size: 15px;
+    font-weight: 600;
+    cursor : pointer;
+}
+
+.filteringMenu {
+    color: #4B4B4B;
+}
+
+.fishingMenu {
+    color: #FFFFFF;
+}
+
+/* 팝업 */
+.offAlarm {
+    width: 428px;
+    height: 74px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    position: relative;
+    background-color: #ffd2d7;
+    margin: 10px auto 15px auto;
+}
+
+.closeButton {
+    position: absolute;
+    font-size: 12px;
+    top: 3px;
+    right: 13px;
+    font-weight: 500;
+    color: #555555;
+}
+
+.block {
+    display: block;
+    margin: auto 40px;
+}
+
+.blockAlarm {
+    font-size: 15px;
+    font-weight: 600;
+    color: #4B4B4B;
+}
+
+.blockDetail {
+    font-size: 11px;
+    font-weight: 400;
+    color: #4B4B4B;
+}
+
+/* 위험도순 */
+.order {
+    display: flex;
+    width: 100%;
+    height: 20px;
+    margin: auto 370px;
+}
+
+.orderDanger {
+    font-size: 11px;
+    color: #616161;
+    font-weight: 400;
+}
+
+.orderButton {
+    font-size: 13px;
+    color: #616161;
+    margin-left: 7px;
+}
+
+/* 바이러스 */
+.linkBox {
+    background-color: #F8F8F8;
+    border-radius: 25px;
+    height: 361px;
+    width: 428px;
+    margin: 0 auto;
+    padding: 15px 0px;
+}
+
+.siteListContainer {
+    width: 387px;
+    height: 125px;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    margin: 0px auto 10px auto;
+    padding: 10px;
+}
+
+.siteContainer {
+    display: flex;
+    width: 365px;
+    height: 56px;
+    border-radius: 15px;
+    background-color: #F0F0F0;
+    padding: 0px 15px;
+    margin: auto;
+}
+
+
+.siteThumbNail {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    margin: auto 0px;
+}
+
+
+.detailsContainer {
+    margin: auto 15px;
+}
+
+
+.siteDetails {
+    width: 220px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #4B4B4B;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
+.siteLinks {
+    font-size: 10px;
+    font-weight: 500;
+    color: #4B4B4B;
+    width: 168px;
+    line-height: 1;
+    margin-top: 3px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
+.buttonContainer {
+    display: flex;
+    margin: 10px 0px;
+}
+
+.virusButton {
+    width: 78.55px;
+    height: 25.62px;
+    background-color: #EC221F;
+    border-radius: 6.39px;
+    display: grid;
+    place-items: center; 
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 300;
+    margin: 2.5px;
+}
+
+.trackingButton {
+    width: 66.55px;
+    height: 25.62px;
+    background-color: #EC221F;
+    border-radius: 6.39px;
+    display: grid;
+    place-items: center; 
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 300;
+    margin: 2.5px;
+}
+
+.malwareButton {
+    width: 78.55px;
+    height: 25.62px;
+    background-color: #EC221F;
+    border-radius: 6.39px;
+    display: grid;
+    place-items: center; 
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 300;
+    margin: 2.5px;
+}
+
+
+
+ /* 스크롤바 */
+
+ .linkBox {
+   
+    height: 361px;
+    overflow-y: scroll;
+}
+
+.linkBox::-webkit-scrollbar {
+    width: 7px; 
+    height:153px;
+}
+
+.linkBox::-webkit-scrollbar-track {
+    background: none; 
+}
+
+.linkBox::-webkit-scrollbar-thumb {
+    background-color: #B6B6B6; 
+    border-radius: 3.5px; 
+    max-height : 30px;
+}
+
+ 
+.linkBox::-webkit-scrollbar-thumb:hover {
+    background-color:#9c9a9a;
+}
+
+.linkBox::-webkit-scrollbar-button {
+    display: none; 
+}
+ 
+/* 화면 슬라이드 애니메이션 효과 구현하기 */
+@keyframes slideA {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+  
+  @keyframes slideB {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+  }
+  
+  /* 슬라이딩 애니메이션 클래스 */
+  .slideA {
+    animation: slideA 0.3s forwards;
+  }
+  
+  .slideB {
+    animation: slideB 0.3s forwards;
+  }
