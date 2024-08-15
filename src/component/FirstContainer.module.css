@@ -1,0 +1,92 @@
+.siteListContainer {
+  width: 387px;
+  height: 163px;
+  border-radius: 15px;
+  background-color: #ffffff;
+  margin: 10px auto;
+}
+
+.siteInfo {
+  display: flex;
+  padding: 15px 0px 0px 15px;
+}
+
+.siteNew {
+  display: grid;
+  place-items: center;
+  width: 37.62px;
+  height: 25.62px;
+  font-size: 12.62px;
+  color: #ffffff;
+  background-color: #2273ff;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.siteTime {
+  font-size: 12px;
+  color: #2273ff;
+  margin-left: 10px;
+}
+
+.dot {
+  font-size: 12px;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: #797979;
+}
+
+.siteType {
+  font-size: 12px;
+  color: #797979;
+}
+
+/* 설명 */
+.siteDetail {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  width: 265px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  white-space: nowrap;
+  color: #4b4b4b;
+  padding: 0px 0px 0px 15px;
+}
+
+/* url */
+.linkTag {
+  display: flex;
+  background-color: #f0f0f0;
+  height: 56px;
+  width: 365px;
+  margin: 0 auto;
+  border-radius: 15px;
+  padding: 0px 10px;
+}
+
+.linkThumbNail {
+  width: 38px;
+  height: 37px;
+  border-radius: 30px;
+  background-color: #000000;
+  margin: auto 0;
+}
+
+.typeDetail {
+  margin: auto 10px;
+  line-height: 0.3;
+}
+
+.linkType {
+  font-size: 15px;
+  color: #626262;
+  font-weight: 500;
+}
+
+.linkDetail {
+  font-size: 10px;
+  color: #969696;
+  font-weight: 500;
+}

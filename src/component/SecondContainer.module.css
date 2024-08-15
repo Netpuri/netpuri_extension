@@ -1,0 +1,77 @@
+.siteListContainer {
+  width: 387px;
+  height: 125px;
+  border-radius: 15px;
+  background-color: #ffffff;
+  margin: 0px auto 10px auto;
+  padding: 10px;
+  transition: transform 0.1s ease;
+}
+
+.siteContainer {
+  display: flex;
+  width: 365px;
+  height: 56px;
+  border-radius: 15px;
+  background-color: #f0f0f0;
+  padding: 0px 15px;
+  margin: auto;
+  transition: transform 0.1s ease;
+}
+
+.siteContainer:hover {
+  transform: scale(0.98);
+}
+
+.siteThumbNail {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  margin: auto 0px;
+}
+
+.detailsContainer {
+  margin: auto 15px;
+}
+
+.siteDetails {
+  width: 220px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #4b4b4b;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.siteLinks {
+  font-size: 10px;
+  font-weight: 500;
+  color: #4b4b4b;
+  width: 168px;
+  line-height: 1;
+  margin-top: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.buttonContainer {
+  display: flex;
+  margin: 10px 0px;
+}
+
+.warningSign {
+  height: 25.62px;
+  background-color: #ec221f;
+  border-radius: 6.39px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 300;
+  margin: 2.5px;
+  padding: 0px 8px;
+}

@@ -1,0 +1,155 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  margin: 0px;
+  min-height: 100vh;
+  line-height: 0.4;
+}
+
+nav {
+  display: flex;
+  width: 450px;
+  padding: 30px 30px 0px 30px;
+  margin: 0px 0px 25px 0px;
+}
+
+.screen {
+  width: 450px;
+  height: 600px;
+}
+
+/* nav */
+.close {
+  font-size: 15px;
+  font-weight: 200;
+  color: #b6b6b6;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0px auto;
+  color: #2273ff;
+}
+
+/* menu */
+.backGround {
+  background-color: #f8f8f8;
+  width: 428px;
+  height: 472px;
+  margin: 0 auto;
+  border-radius: 25px;
+}
+
+.menuContainer {
+  width: 428px;
+  height: 42px;
+  background-color: #f8f8f8;
+  border-radius: 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  margin: 0px auto;
+}
+
+.selectedMenu {
+  width: 50%;
+  height: 32px;
+  background-color: #2273ff;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.unselectedMenu {
+  width: 50%;
+  height: 32px;
+  background-color: #f8f8f8;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu {
+  flex: 1;
+  text-align: center;
+  width: 178px;
+  margin: auto;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.filteringMenu {
+  color: #ffffff;
+}
+
+.fishingMenu {
+  color: #4b4b4b;
+}
+
+/* 필터링 메뉴 선택 */
+.buttonContainer {
+  width: 428px;
+  height: 111px;
+  background-color: #dae8ff;
+  margin: 10px auto;
+  border-radius: 25px;
+  padding: 18px 35px;
+}
+
+.button {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 4px 5px;
+  padding: 0px 15px;
+  height: 30px;
+  text-align: center;
+  color: #9c9c9c;
+  transition: transform 0.1s ease;
+}
+
+.button:hover {
+  transform: scale(0.95);
+}
+
+.icon {
+  margin-left: 5px;
+}
+
+/* 필터링 링크 nav */
+.scrollBar {
+  height: 360px;
+  overflow-y: overlay;
+}
+
+/* 스크롤바 */
+.scrollBar::-webkit-scrollbar {
+  height: 153px;
+  width: 7px;
+}
+
+.scrollBar::-webkit-scrollbar-track {
+  display: none;
+}
+.scrollBar::-webkit-scrollbar-thumb {
+  border-radius: 3.5px;
+  background-color: #b6b6b6;
+  height: 10%;
+  width: 7px;
+}
+.scrollBar::-webkit-scrollbar-button {
+  display: none;
+}

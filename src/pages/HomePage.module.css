@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  margin: 0px;
+  min-height: 100vh;
+  line-height: 0.4;
+
+  width: 450px;
+  height: 600px;
+}
+
+nav {
+  display: flex;
+  width: 450px;
+  padding: 30px 30px 0px 30px;
+  margin: 0px 0px 25px 0px;
+}
+
+/* nav */
+.close {
+  font-size: 15px;
+  font-weight: 200;
+  color: #b6b6b6;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0px auto;
+  color: #2273ff;
+}
+
+/* menucontainer */
+.switchContainer {
+  position: relative;
+  z-index: 2;
+  width: 428px;
+  height: 438px;
+  border-radius: 25px;
+  background-color: #b3d0ff;
+  margin: 0px 11px;
+  padding-top: 0px;
+}
+
+.menuContainer {
+  position: absolute;
+  z-index: 1;
+  width: 428px;
+  height: 360px;
+  background-color: #dae8ff;
+  margin: 0 auto;
+  border-radius: 25px;
+  padding: 18px 38px;
+}
+
+/* 필터링 */
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2273ff;
+}
+
+/* 버튼 */
+.para {
+  margin: 25px 0px 0px 0px;
+}
+
+.Details {
+  display: flex;
+  align-items: center;
+}
+
+.title2 {
+  font-size: 15px;
+  font-weight: 500;
+  color: #4b4b4b;
+}
+
+.des {
+  font-size: 11px;
+  font-weight: 400;
+  color: #4b4b4b;
+  margin-left: 15px;
+}
+
+/* 버튼 스타일 */
+.homeButtons {
+  margin-right: 10px;
+  margin-top: 5px;
+  border-style: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  width: 60px;
+  height: 30px;
+  transition: background-color 0.2s;
+}
+
+/* 피싱 사이트 감지 */
+.fishingDetect {
+  position: absolute;
+  margin: 0px 25px auto;
+  bottom: 20px;
+  display: flex;
+}
+
+.fishingSite {
+  color: #2273ff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.switch {
+  margin: 5px auto;
+  width: 55px;
+  height: 25.83px;
+  background-color: #f8f8f8;
+  border-radius: 30px;
+  position: relative;
+  margin-left: 215px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.toggle {
+  width: 22.5px;
+  height: 22.5px;
+  background-color: #ffffff;
+  filter: drop-shadow(0px 0px 1.5px #c7c7c7);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 2.5px;
+  transform: translateY(-50%);
+  transition: transform 0.3s;
+}
+
+.switch.on {
+  background-color: #2273ff;
+}
+
+.switch.on .toggle {
+  transform: translate(28px, -50%);
+}
+
+/* 통계 */
+.staticsInfo {
+  width: 428px;
+  height: 69px;
+  background-color: #f8f8f8;
+  display: flex;
+  border-radius: 25px;
+  margin: 13px 11px;
+  padding: 25px;
+}
+
+.static {
+  margin: 5px auto;
+  margin-right: 330px;
+  font-size: 15px;
+  color: #4b4b4b;
+  font-weight: 600;
+}
+
+.image {
+  width: 19px;
+  height: 19px;
+  margin: 0px auto;
+}

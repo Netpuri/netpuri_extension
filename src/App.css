@@ -1,0 +1,48 @@
+/* App.css */
+/* 애니메이션 초기 상태 */
+
+.fade-enter {
+  opacity: 0;
+  transform: translateX(100%);
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0ms, transform 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0);
+  position: absolute;
+  width: 100%;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0ms, transform 300ms;
+}
+
+/* 화면 전환 시 애니메이션 적용하지 않기 */
+.none-enter {
+  opacity: 1;
+}
+
+.none-enter-active {
+  opacity: 1;
+  transition: opacity 0ms;
+}
+
+.none-exit {
+  opacity: 1;
+}
+
+.none-exit-active {
+  opacity: 1;
+  transition: opacity 0ms;
+}

@@ -1,0 +1,38 @@
+/* 팝업 */
+.offAlarm {
+  width: 428px;
+  height: 74px;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 15px;
+  position: relative;
+  background-color: #ffd2d7;
+  margin: 10px auto 0px auto;
+}
+
+.closeButton {
+  position: absolute;
+  font-size: 12px;
+  top: 3px;
+  right: 13px;
+  font-weight: 500;
+  color: #555555;
+  cursor: pointer;
+}
+
+.block {
+  display: block;
+  margin: auto 40px;
+}
+
+.blockAlarm {
+  font-size: 15px;
+  font-weight: 600;
+  color: #4b4b4b;
+}
+
+.blockDetail {
+  font-size: 11px;
+  font-weight: 400;
+  color: #4b4b4b;
+}

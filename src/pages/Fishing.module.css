@@ -1,0 +1,134 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  margin: 0px;
+  min-height: 100vh;
+  line-height: 0.4;
+}
+
+nav {
+  display: flex;
+  width: 450px;
+  padding: 30px 30px 0px 30px;
+  margin: 0px 0px 25px 0px;
+}
+
+.screen {
+  width: 450px;
+  height: 600px;
+}
+
+/* nav */
+.close {
+  font-size: 15px;
+  font-weight: 200;
+  color: #b6b6b6;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0px auto;
+  color: #2273ff;
+}
+
+/* menu */
+.menuContainer {
+  width: 428px;
+  height: 42px;
+  background-color: #f8f8f8;
+  border-radius: 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  margin: 0px auto;
+}
+
+.selectedMenu {
+  width: 214px;
+  height: 32px;
+  background-color: #2273ff;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.unselectedMenu {
+  width: 50%;
+  height: 32px;
+  background-color: #f8f8f8;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu {
+  flex: 1;
+  text-align: center;
+  width: 178px;
+  margin: 0 auto;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.filteringMenu {
+  color: #4b4b4b;
+}
+
+.fishingMenu {
+  color: #ffffff;
+}
+
+/* Dropdown */
+.dropdownContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0px 15px;
+}
+
+/* 바이러스 */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.linkBox {
+  background-color: #f8f8f8;
+  border-radius: 25px;
+  width: 428px;
+  height: 361px;
+  margin: 0 auto;
+  padding: 15px 0px;
+  overflow: hidden;
+}
+
+/* 스크롤바 */
+.scrollBar {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.scrollBar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.scrollBar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollBar::-webkit-scrollbar-thumb {
+  border-radius: 3.5px;
+  background-color: #b6b6b6;
+}
+.scrollBar::-webkit-scrollbar-button {
+  display: none;
+}
