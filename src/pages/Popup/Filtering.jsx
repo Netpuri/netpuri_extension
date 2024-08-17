@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import {
   Container,
@@ -13,15 +13,31 @@ import {
 import history from '../../assets/img/history.svg';
 import Button from './Button';
 
-const socialTypes = ['혐오', '정치', '광고', '비방'];
-const illegalTypes = ['음란', '폭력', '도박', '불법'];
+const socialTypes = ['정치'];
+const illegalTypes = ['음란', '공격'];
 const mentalTypes = ['우울'];
 
 const Filtering = ({ onClick }) => {
   const [siteFilterOn, setSiteFilterOn] = useState(false);
+
+  useEffect(() => {
+    chrome.storage.local.get(['siteFilterOn'], (result) => {
+      if (result.siteFilterOn !== undefined) {
+        setSiteFilterOn(result.siteFilterOn);
+      } else {
+        // 값이 없으면 기본값 true로 설정
+        chrome.storage.local.set({ siteFilterOn: true });
+        setSiteFilterOn(true);
+      }
+    });
+  }, []);
+
   const handleToggle = () => {
-    setSiteFilterOn((prev) => !prev);
+    const newValue = !siteFilterOn;
+    setSiteFilterOn(newValue);
+    chrome.storage.local.set({ siteFilterOn: newValue });
   };
+
   return (
     <FilterSelectContainer>
       <Container>

@@ -16,3 +16,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 });
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.local.get(['siteFilterOn'], (result) => {
+    if (result.siteFilterOn === undefined) {
+      chrome.storage.local.set({ siteFilterOn: true }, () => {
+        console.log('Default siteFilterOn set to true');
+      });
+    }
+  });
+});

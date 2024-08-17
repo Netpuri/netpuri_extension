@@ -1,6 +1,6 @@
 {
   "name": "WebCleanser",
-  "version": "5.0.4",
+  "version": "1.0.0",
   "description": "페이지의 텍스트를 필터링하고, 링크를 검사합니다.",
   "license": "MIT",
   "repository": {

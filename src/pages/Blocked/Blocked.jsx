@@ -94,7 +94,9 @@ const Blocked = () => {
           <p className="sub-text">
             해당 사이트는 사용자에게 잠재적 위험이 있을 가능성이 있습니다.
             <br />
-            위험 유형: {getThreatTypeInKorean(threatType)}
+            <p className="threat">
+              위험 유형: {getThreatTypeInKorean(threatType)}
+            </p>
           </p>
           <p className="desc-text">
             {getThreatDescription(threatType)} <br />
@@ -220,6 +222,9 @@ const Wrapper = styled.div`
   .sub-text {
     font-size: 28px;
     font-weight: medium;
+    .threat {
+      font-size: 22px;
+    }
   }
 
   .desc-text {
