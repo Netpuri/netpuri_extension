@@ -75,9 +75,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 function checkTextWithAPI(text) {
   return new Promise((resolve, reject) => {
-    // 현재 활성 탭의 정보를 가져오기
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const tab = tabs[0]; // 현재 활성화된 탭
+      const tab = tabs[0];
 
       chrome.storage.local.get('hazardous_texts', (data) => {
         if (chrome.runtime.lastError) {
@@ -90,13 +89,6 @@ function checkTextWithAPI(text) {
         }
 
         let hazardousTexts = data.hazardous_texts || [];
-        const existingIndex = hazardousTexts.findIndex(
-          (item) => item.original_text === text
-        );
-
-        if (existingIndex !== -1) {
-          hazardousTexts.splice(existingIndex, 1);
-        }
 
         fetch('http://localhost:8080/api/checkText', {
           method: 'POST',
@@ -116,33 +108,55 @@ function checkTextWithAPI(text) {
                 detail: item.result.detail,
                 type: item.result.type,
                 state: 'new',
-                siteUrl: tab.url, // 현재 탭의 URL
-                siteTitle: tab.title, // 현재 탭의 제목
+                siteUrl: tab.url,
+                siteTitle: tab.title,
                 faviconUrl: `https://www.google.com/s2/favicons?domain=${
                   new URL(tab.url).hostname
-                }`, // 현재 탭의 파비콘
+                }`,
               }));
 
               hazardousTexts = hazardousTexts.concat(newEntries);
 
+              // 최대 200개의 텍스트만 유지
               if (hazardousTexts.length > 200) {
                 hazardousTexts = hazardousTexts.slice(-200);
               }
 
-              chrome.storage.local.set(
-                { hazardous_texts: hazardousTexts },
-                () => {
-                  if (chrome.runtime.lastError) {
-                    console.error(
-                      'Error saving to storage:',
-                      chrome.runtime.lastError.message
-                    );
-                    reject(chrome.runtime.lastError);
-                    return;
-                  }
-                  resolve(result.hazardous_texts);
+              // 비동기 요청 동기화
+              chrome.storage.local.get('hazardous_texts', (updatedData) => {
+                if (chrome.runtime.lastError) {
+                  console.error(
+                    'Error accessing storage:',
+                    chrome.runtime.lastError.message
+                  );
+                  reject(chrome.runtime.lastError);
+                  return;
                 }
-              );
+
+                // 다시 가져온 데이터와 병합
+                let updatedHazardousTexts = updatedData.hazardous_texts || [];
+                updatedHazardousTexts =
+                  updatedHazardousTexts.concat(newEntries);
+
+                if (updatedHazardousTexts.length > 200) {
+                  updatedHazardousTexts = updatedHazardousTexts.slice(-200);
+                }
+
+                chrome.storage.local.set(
+                  { hazardous_texts: updatedHazardousTexts },
+                  () => {
+                    if (chrome.runtime.lastError) {
+                      console.error(
+                        'Error saving to storage:',
+                        chrome.runtime.lastError.message
+                      );
+                      reject(chrome.runtime.lastError);
+                      return;
+                    }
+                    resolve(result.hazardous_texts);
+                  }
+                );
+              });
             } else {
               resolve([]);
             }
@@ -155,7 +169,6 @@ function checkTextWithAPI(text) {
     });
   });
 }
-
 // 백그라운드에서 API 요청을 처리하는 함수
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'checkText') {
