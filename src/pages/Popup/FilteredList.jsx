@@ -14,21 +14,13 @@ const FilteredList = () => {
 
   const handleFilter = (category) => {
     if (category === 'total') {
-      if (filter.total) {
-        setFilter({
-          total: false,
-          social: false,
-          illegal: false,
-          mental: false,
-        });
-      } else {
-        setFilter({
-          total: true,
-          social: true,
-          illegal: true,
-          mental: true,
-        });
-      }
+      const newFilterState = !filter.total;
+      setFilter({
+        total: newFilterState,
+        social: newFilterState,
+        illegal: newFilterState,
+        mental: newFilterState,
+      });
     } else {
       const newFilter = {
         ...filter,
@@ -46,7 +38,6 @@ const FilteredList = () => {
   };
 
   useEffect(() => {
-    // Chrome storage에서 데이터 가져오기
     chrome.storage.local.get('hazardous_texts', (data) => {
       if (chrome.runtime.lastError) {
         console.error(
@@ -54,24 +45,7 @@ const FilteredList = () => {
           chrome.runtime.lastError.message
         );
       } else {
-        let texts = data.hazardous_texts || [];
-        // state가 'new'인 경우 'old'로 변경
-        setHazardousTexts(texts);
-        const updatedTexts = texts.map((text) => {
-          if (text.state === 'new') {
-            return { ...text, state: 'old' };
-          }
-          return text;
-        });
-        // 업데이트된 데이터를 다시 storage에 저장
-        chrome.storage.local.set({ hazardous_texts: updatedTexts }, () => {
-          if (chrome.runtime.lastError) {
-            console.error(
-              'Error saving to storage:',
-              chrome.runtime.lastError.message
-            );
-          }
-        });
+        setHazardousTexts(data.hazardous_texts || []);
       }
     });
   }, []);
@@ -80,7 +54,7 @@ const FilteredList = () => {
   const getFilteredTexts = () => {
     return hazardousTexts.filter((text) => {
       if (filter.total) return true; // '전체'가 선택된 경우 모든 텍스트 표시
-      if (filter.social && text.type === '사회적 유해l') return true;
+      if (filter.social && text.type === '사회적 유해') return true;
       if (filter.illegal && text.type === '불법 및 위험') return true;
       if (filter.mental && text.type === '정신적 위험') return true;
       return false;

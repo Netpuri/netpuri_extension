@@ -78,97 +78,44 @@ function checkTextWithAPI(text) {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tab = tabs[0];
 
-      chrome.storage.local.get('hazardous_texts', (data) => {
-        if (chrome.runtime.lastError) {
-          console.error(
-            'Error accessing storage:',
-            chrome.runtime.lastError.message
-          );
-          reject(chrome.runtime.lastError);
-          return;
-        }
+      fetch('http://localhost:8080/api/checkText', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          texts: [text],
+        }),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.hazard) {
+            const newEntries = result.hazardous_texts.map((item) => ({
+              detectTime: new Date().toISOString(),
+              original_text: item.original_text,
+              detail: item.result.detail,
+              type: item.result.type,
+              state: 'new',
+              siteUrl: tab.url,
+              siteTitle: tab.title,
+              faviconUrl: `https://www.google.com/s2/favicons?domain=${
+                new URL(tab.url).hostname
+              }`,
+            }));
 
-        let hazardousTexts = data.hazardous_texts || [];
-
-        fetch('http://localhost:8080/api/checkText', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            texts: [text],
-          }),
+            resolve(newEntries); // 새로운 항목들을 콘텐츠 스크립트로 전달
+          } else {
+            resolve([]); // 위험한 텍스트가 없는 경우, 빈 배열 반환
+          }
         })
-          .then((response) => response.json())
-          .then((result) => {
-            if (result.hazard) {
-              const newEntries = result.hazardous_texts.map((item) => ({
-                detectTime: new Date().toISOString(),
-                original_text: item.original_text,
-                detail: item.result.detail,
-                type: item.result.type,
-                state: 'new',
-                siteUrl: tab.url,
-                siteTitle: tab.title,
-                faviconUrl: `https://www.google.com/s2/favicons?domain=${
-                  new URL(tab.url).hostname
-                }`,
-              }));
-
-              hazardousTexts = hazardousTexts.concat(newEntries);
-
-              // 최대 200개의 텍스트만 유지
-              if (hazardousTexts.length > 200) {
-                hazardousTexts = hazardousTexts.slice(-200);
-              }
-
-              // 비동기 요청 동기화
-              chrome.storage.local.get('hazardous_texts', (updatedData) => {
-                if (chrome.runtime.lastError) {
-                  console.error(
-                    'Error accessing storage:',
-                    chrome.runtime.lastError.message
-                  );
-                  reject(chrome.runtime.lastError);
-                  return;
-                }
-
-                // 다시 가져온 데이터와 병합
-                let updatedHazardousTexts = updatedData.hazardous_texts || [];
-                updatedHazardousTexts =
-                  updatedHazardousTexts.concat(newEntries);
-
-                if (updatedHazardousTexts.length > 200) {
-                  updatedHazardousTexts = updatedHazardousTexts.slice(-200);
-                }
-
-                chrome.storage.local.set(
-                  { hazardous_texts: updatedHazardousTexts },
-                  () => {
-                    if (chrome.runtime.lastError) {
-                      console.error(
-                        'Error saving to storage:',
-                        chrome.runtime.lastError.message
-                      );
-                      reject(chrome.runtime.lastError);
-                      return;
-                    }
-                    resolve(result.hazardous_texts);
-                  }
-                );
-              });
-            } else {
-              resolve([]);
-            }
-          })
-          .catch((error) => {
-            console.error('API request failed:', error.message);
-            reject(error);
-          });
-      });
+        .catch((error) => {
+          console.error('API request failed:', error.message);
+          reject(error);
+        });
     });
   });
 }
+
 // 백그라운드에서 API 요청을 처리하는 함수
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'checkText') {

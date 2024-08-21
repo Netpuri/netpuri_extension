@@ -13,7 +13,7 @@ import history from '../../assets/img/history.svg';
 import Button from './Button';
 
 const socialTypes = ['정치'];
-const illegalTypes = ['음란', '공격'];
+const illegalTypes = ['음란', '폭력'];
 const mentalTypes = ['우울'];
 
 const Filtering = ({ onClick }) => {
