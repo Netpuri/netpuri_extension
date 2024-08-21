@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container,
   FilterContainer,
@@ -19,15 +18,19 @@ const mentalTypes = ['우울'];
 
 const Filtering = ({ onClick }) => {
   const [siteFilterOn, setSiteFilterOn] = useState(false);
+  const [selectedDetails, setSelectedDetails] = useState([]);
 
   useEffect(() => {
-    chrome.storage.local.get(['siteFilterOn'], (result) => {
+    chrome.storage.local.get(['siteFilterOn', 'selectedDetails'], (result) => {
       if (result.siteFilterOn !== undefined) {
         setSiteFilterOn(result.siteFilterOn);
       } else {
-        // 값이 없으면 기본값 true로 설정
         chrome.storage.local.set({ siteFilterOn: true });
         setSiteFilterOn(true);
+      }
+
+      if (result.selectedDetails !== undefined) {
+        setSelectedDetails(result.selectedDetails);
       }
     });
   }, []);
@@ -36,6 +39,19 @@ const Filtering = ({ onClick }) => {
     const newValue = !siteFilterOn;
     setSiteFilterOn(newValue);
     chrome.storage.local.set({ siteFilterOn: newValue });
+  };
+
+  const handleDetailToggle = (detail) => {
+    const updatedDetails = selectedDetails.includes(detail)
+      ? selectedDetails.filter((d) => d !== detail)
+      : [...selectedDetails, detail];
+    setSelectedDetails(updatedDetails);
+    chrome.storage.local.set({ selectedDetails: updatedDetails });
+
+    chrome.runtime.sendMessage({
+      action: 'updateSelectedDetails',
+      selectedDetails: updatedDetails,
+    });
   };
 
   return (
@@ -49,18 +65,24 @@ const Filtering = ({ onClick }) => {
               desc="혐오 발언과 정치적 선전 및 조작 검열"
               types={socialTypes}
               category="social"
+              selectedDetails={selectedDetails}
+              onToggleDetail={handleDetailToggle}
             />
             <FilterItem
               title="불법 및 위험"
               desc="법적으로 금지되거나 위험한 콘텐츠 검열"
               types={illegalTypes}
               category="illegal"
+              selectedDetails={selectedDetails}
+              onToggleDetail={handleDetailToggle}
             />
             <FilterItem
               title="정신적 위험"
               desc="정신 건강에 악영향을 미칠 수 있는 콘텐츠 검열"
               types={mentalTypes}
               category="mental"
+              selectedDetails={selectedDetails}
+              onToggleDetail={handleDetailToggle}
             />
           </div>
         </FilterContainer>
@@ -79,7 +101,14 @@ const Filtering = ({ onClick }) => {
   );
 };
 
-const FilterItem = ({ title, desc, types, category }) => {
+const FilterItem = ({
+  title,
+  desc,
+  types,
+  category,
+  selectedDetails,
+  onToggleDetail,
+}) => {
   return (
     <FilterItemContainer>
       <div className="item-header">
@@ -88,7 +117,13 @@ const FilterItem = ({ title, desc, types, category }) => {
       </div>
       <div className="buttons">
         {types.map((type) => (
-          <Button key={type} text={type} category={category} />
+          <Button
+            key={type}
+            text={type}
+            category={category}
+            isClicked={selectedDetails.includes(type)}
+            onClick={() => onToggleDetail(type)}
+          />
         ))}
       </div>
     </FilterItemContainer>

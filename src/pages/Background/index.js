@@ -67,3 +67,45 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 });
+
+// 백그라운드에서 API 요청을 처리하는 함수
+async function checkTextWithAPI(text) {
+  const response = await fetch('http://localhost:8080/api/checkText', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      texts: [text],
+    }),
+  });
+
+  const result = await response.json();
+  return result.hazard ? result.hazardous_texts : [];
+}
+
+// 우클릭 메뉴 생성
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: 'toggleHighlight',
+    title: '유해 텍스트 보이기/가리기',
+    contexts: ['all'],
+  });
+});
+
+// 우클릭 메뉴 선택 시 동작
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  if (info.menuItemId === 'toggleHighlight') {
+    chrome.tabs.sendMessage(tab.id, { action: 'toggleHighlight' });
+  }
+});
+
+// 메시지를 받아 API 요청을 보내고 결과를 반환
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'checkText') {
+    checkTextWithAPI(message.text).then((hazardousTexts) => {
+      sendResponse({ hazardousTexts });
+    });
+    return true; // 비동기 응답을 위해 true 반환
+  }
+});

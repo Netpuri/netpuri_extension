@@ -272,7 +272,7 @@ const Detail = styled.div`
     background-color: #f8f8f8;
     margin: 0 11px;
     border-radius: 24px;
-    height: 515px;
+    height: 480px;
     overflow-y: auto;
     padding: 20px;
   }

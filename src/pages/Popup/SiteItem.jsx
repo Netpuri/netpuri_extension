@@ -10,8 +10,6 @@ const SiteItem = ({ site, onClick }) => {
         <div>
           <p className="title-text">{site.title}</p>
           <p className="url-text">{site.url}</p>
-          <p className="visit-time">방문 시간: {site.visitTime}</p>
-          <p className="risk-info">위험 정보: {site.riskInfo}</p>
         </div>
       </div>
       <div className="category">

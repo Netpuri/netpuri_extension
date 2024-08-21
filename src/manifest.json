@@ -31,6 +31,13 @@
       "matches": ["*://*/*"]
     }
   ],
-  "permissions": ["scripting", "activeTab", "storage", "tabs", "webNavigation"],
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage",
+    "tabs",
+    "webNavigation",
+    "contextMenus"
+  ],
   "host_permissions": ["http://localhost:8080/*", "<all_urls>"]
 }
