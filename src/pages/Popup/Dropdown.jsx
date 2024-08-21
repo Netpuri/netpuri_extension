@@ -2,6 +2,37 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import icon from '../../assets/img/dropdown.svg';
 
+const Dropdown = ({ onSelect }) => {
+  const options = ['최신순', '오래된순'];
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(options[0]);
+
+  const handleSelect = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+    onSelect(option); // 선택된 옵션을 부모 컴포넌트에 전달
+  };
+
+  return (
+    <DropdownContainer>
+      <Label onClick={() => setIsOpen(!isOpen)}>
+        {selectedOption}
+        <Icon src={icon} alt="아이콘" />
+      </Label>
+      <OptionList className={isOpen ? 'open' : ''}>
+        {options.map((option, index) => (
+          <Option key={index} onClick={() => handleSelect(option)}>
+            {option}
+          </Option>
+        ))}
+      </OptionList>
+    </DropdownContainer>
+  );
+};
+
+export default Dropdown;
+
 const DropdownContainer = styled.div`
   cursor: pointer;
   font-size: 11px;
@@ -62,33 +93,3 @@ const Icon = styled.img`
   width: auto;
   margin: auto;
 `;
-
-const Dropdown = () => {
-  const options = ['최신순', '오래된순'];
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(options[0]);
-
-  const handleSelect = (option) => {
-    setSelectedOption(option);
-    setIsOpen(false);
-  };
-
-  return (
-    <DropdownContainer>
-      <Label onClick={() => setIsOpen(!isOpen)}>
-        {selectedOption}
-        <Icon src={icon} alt="아이콘" />
-      </Label>
-      <OptionList className={isOpen ? 'open' : ''}>
-        {options.map((option, index) => (
-          <Option key={index} onClick={() => handleSelect(option)}>
-            {option}
-          </Option>
-        ))}
-      </OptionList>
-    </DropdownContainer>
-  );
-};
-
-export default Dropdown;

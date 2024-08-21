@@ -66,8 +66,8 @@ const Filtering = ({ onClick }) => {
         </FilterContainer>
         <FishingContainer>
           <p>피싱 사이트 감지</p>
-          <Switch isOn={siteFilterOn} onClick={handleToggle}>
-            <Toggle isOn={siteFilterOn} />
+          <Switch $isOn={siteFilterOn} onClick={handleToggle}>
+            <Toggle $isOn={siteFilterOn} />
           </Switch>
         </FishingContainer>
       </Container>

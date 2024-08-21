@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import cancle from '../../assets/img/cancle.svg';
 import cancle_small from '../../assets/img/cancle_small.svg';
@@ -7,8 +7,62 @@ import Dropdown from './Dropdown';
 import SiteItem from './SiteItem';
 
 const Fishing = () => {
-  const [isWarning, setIsWarning] = useState(true);
+  const [isWarning, setIsWarning] = useState(false);
   const [isDetail, setIsDetail] = useState(false);
+  const [selectedSite, setSelectedSite] = useState(null);
+  const [siteData, setSiteData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = () => {
+      chrome.storage.local.get(null, (items) => {
+        const sites = Object.values(items).filter((item) => item && item.url);
+        setSiteData(sites);
+        setIsLoading(false);
+      });
+    };
+
+    loadData();
+
+    const handleStorageChange = (changes, areaName) => {
+      if (areaName === 'local') {
+        loadData();
+      }
+    };
+
+    chrome.storage.onChanged.addListener(handleStorageChange);
+
+    return () => {
+      chrome.storage.onChanged.removeListener(handleStorageChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    chrome.storage.local.get(['siteFilterOn'], (result) => {
+      const filterOn =
+        result.siteFilterOn !== undefined ? result.siteFilterOn : true;
+      setIsWarning(!filterOn);
+    });
+  }, []);
+
+  const handleSiteClick = (site) => {
+    setSelectedSite(site);
+    setIsDetail(true);
+  };
+
+  const handleSortChange = (option) => {
+    const sortedSites = [...siteData];
+    if (option === '최신순') {
+      sortedSites.sort((a, b) => new Date(b.visitTime) - new Date(a.visitTime));
+    } else if (option === '오래된순') {
+      sortedSites.sort((a, b) => new Date(a.visitTime) - new Date(b.visitTime));
+    }
+    setSiteData(sortedSites);
+  };
+
+  if (isLoading) {
+    return <LoadingContainer>Loading...</LoadingContainer>;
+  }
 
   return isDetail ? (
     <Detail>
@@ -24,51 +78,35 @@ const Fishing = () => {
         />
       </div>
       <div className="body">
-        <SiteInfo>
-          <img
-            src="https://www.google.com/s2/favicons?domain=www.naver.com"
-            alt="favicon"
-          />
-          <div className="site-text">
-            <p className="title-text">일본 데이터 e심 - Google 검색</p>
-            <p>
-              google.co.kr/search?q_src=google...google.co.kr/search?q_src=google...google.co.kr/search?q_src=google...
-            </p>
-          </div>
-        </SiteInfo>
-        <SiteDetail>
-          <div>
-            <p className="title-text">방문 시간</p>
-            <p className="sub-text">2024.5.30 19:30:27</p>
-          </div>
-          <div>
-            <p className="title-text">위험 가능성</p>
-            <p className="sub-text">바이러스 / 트래킹 / 악성코드</p>
-          </div>
-          <div>
-            <p className="title-text">페이지 주요 정보</p>
-            <p className="sub-text line-height">
-              해당 사이트는 불법 투자를 다루는 사이트로 판단되며 사용자의
-              개인정보 유출을 유도합니다. 사이트는 주로 고수익 투자 기회를
-              가장하여 사용자로 하여금 민감한 금융 정보를 제공하도록 유도합니다.
-            </p>
-            <ul className="sub-text line-height">
-              <li>
-                중국의 불법 투자 조직: 이 사이트는 중국에 기반을 둔 불법 투자
-                조직과 연계되어 있으며, 가짜 투자 상품을 통해 사용자의 돈을
-                갈취하는 데 목적이 있습니다.
-              </li>
-              <li>
-                가짜 투자 상품 광고: 사용자를 유인하기 위해 주식, 암호화폐,
-                부동산 등 다양한 가짜 투자 상품을 광고합니다.
-              </li>
-              <li>
-                고수익 보장: 사이트는 사용자가 고수익을 쉽게 얻을 수 있다고
-                속이며, 투자 시 높은 수익률을 약속합니다.
-              </li>
-            </ul>
-          </div>
-        </SiteDetail>
+        {selectedSite && (
+          <>
+            <SiteInfo>
+              <img src={selectedSite.favicon} alt="favicon" />
+              <div className="site-text">
+                <p className="title-text">{selectedSite.title}</p>
+                <p>{selectedSite.url}</p>
+              </div>
+            </SiteInfo>
+            <SiteDetail>
+              <div>
+                <p className="title-text">방문 시간</p>
+                <p className="sub-text">{selectedSite.visitTime}</p>
+              </div>
+              <div>
+                <p className="title-text">위험 가능성</p>
+                <p className="sub-text">{selectedSite.riskInfo}</p>
+              </div>
+              <div>
+                <p className="title-text">페이지 주요 정보</p>
+                <ul className="sub-text line-height">
+                  {selectedSite.siteDetails.map((detail, index) => (
+                    <li key={index}>{detail}</li>
+                  ))}
+                </ul>
+              </div>
+            </SiteDetail>
+          </>
+        )}
       </div>
     </Detail>
   ) : (
@@ -86,21 +124,42 @@ const Fishing = () => {
           />
         </Warning>
       )}
-      <Dropdown />
+      <Dropdown onSelect={handleSortChange} />
       <ListContainer>
-        <SiteItem
-          onClick={() => {
-            setIsDetail(true);
-          }}
-        />
-        <SiteItem />
-        <SiteItem />
+        {siteData.length > 0 ? (
+          siteData.map((site) => (
+            <SiteItem
+              key={site.url}
+              site={site}
+              onClick={() => handleSiteClick(site)}
+            />
+          ))
+        ) : (
+          <EmptyMessage>저장된 사이트 데이터가 없습니다.</EmptyMessage>
+        )}
       </ListContainer>
     </Container>
   );
 };
 
 export default Fishing;
+
+// Styled Components
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 18px;
+  color: #4b4b4b;
+`;
+
+const EmptyMessage = styled.div`
+  text-align: center;
+  color: #757575;
+  font-size: 14px;
+  margin-top: 50px;
+`;
 
 const SiteDetail = styled.div`
   padding: 20px;
@@ -126,27 +185,27 @@ const SiteDetail = styled.div`
     line-height: 1.5;
   }
   ul {
-    list-style-type: none; /* 기본 점 제거 */
+    list-style-type: none;
     margin-left: 8px;
+    padding: 0;
   }
 
   ul li {
     position: relative;
-    padding-left: 15px; /* 점과 텍스트 간의 간격 */
+    padding-left: 15px;
   }
 
   ul li::before {
-    content: '•'; /* 점을 생성 */
+    content: '•';
     position: absolute;
     left: 0;
   }
 `;
 
 const SiteInfo = styled.div`
-  height: 80px;
   background-color: #f0f0f0;
   border-radius: 24px;
-  padding: 0px 37px;
+  padding: 20px 37px;
   display: flex;
   align-items: center;
   gap: 15.28px;
@@ -173,7 +232,7 @@ const SiteInfo = styled.div`
     }
 
     p {
-      max-width: 320px;
+      max-width: 240px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
@@ -214,6 +273,8 @@ const Detail = styled.div`
     margin: 0 11px;
     border-radius: 24px;
     height: 515px;
+    overflow-y: auto;
+    padding: 20px;
   }
 `;
 

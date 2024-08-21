@@ -97,7 +97,7 @@ export const FishingContainer = styled.div`
 export const Switch = styled.div`
   width: 55px;
   height: 25.83px;
-  background-color: ${(props) => (props.isOn ? '#2273FF' : '#F8F8F8')};
+  background-color: ${(props) => (props.$isOn ? '#2273FF' : '#F8F8F8')};
   border-radius: 30px;
   position: relative;
   transition: background-color 0.3s;
@@ -114,7 +114,7 @@ export const Toggle = styled.div`
   top: 50%;
   left: 2.5px;
   transform: ${(props) =>
-    props.isOn ? 'translate(28px, -50%)' : 'translateY(-50%)'};
+    props.$isOn ? 'translate(28px, -50%)' : 'translateY(-50%)'};
   transition: transform 0.3s;
 `;
 
