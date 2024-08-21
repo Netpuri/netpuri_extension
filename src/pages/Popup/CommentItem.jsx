@@ -26,29 +26,23 @@ const CommentItem = ({ status, time, comment, title, link, img }) => {
   return (
     <CommentContainer>
       <div className="header">
-        <div className="status">
-          <p>new</p>
-        </div>
-        <p className="time">4분 전</p>
+        {status === 'new' && (
+          <div className="status">
+            <p>{status}</p>
+          </div>
+        )}
+        <p className="time">{convertTime(time)}</p>
         <p className="dot">·</p>
         <p className="type">댓글</p>
       </div>
       <div className="comment">
-        <p>
-          Lㅐ 프로필엜 방문✵ㅎㅏヌㅣ □ㅏдㅅㅔ❣...Lㅐ 프로필엜 방문✵ㅎㅏヌㅣ
-          □ㅏдㅅㅔ❣...Lㅐ 프로필엜 방문✵ㅎㅏヌㅣ □ㅏдㅅㅔ❣...
-        </p>
+        <p>{comment}</p>
       </div>
       <SiteInfo>
-        <img src={example} alt="example" />
+        <img src={img ? img : example} alt="favicon" />
         <div>
-          <p className="title">
-            X. 무슨 일이 일어나고 있나요?X. 무슨 일이 일어나고 있나요?X. 무슨
-            일이 일어나고 있나요?
-          </p>
-          <p>
-            https://x.com/?lang=ko21312321321311312321312312321321312213213213
-          </p>
+          <p className="title">{title}</p>
+          <p>{link}</p>
         </div>
       </SiteInfo>
     </CommentContainer>
