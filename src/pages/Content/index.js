@@ -33,6 +33,12 @@ document.addEventListener('click', function (event) {
             'Error accessing storage:',
             chrome.runtime.lastError.message
           );
+          // API 요청 실패 시 기존 동작 수행
+          if (isNewTab) {
+            window.open(linkUrl, '_blank');
+          } else {
+            window.location.href = linkUrl;
+          }
           return;
         }
 
@@ -65,6 +71,12 @@ document.addEventListener('click', function (event) {
                   'Runtime error:',
                   chrome.runtime.lastError.message
                 );
+                // API 요청 실패 시 기존 동작 수행
+                if (isNewTab) {
+                  window.open(linkUrl, '_blank');
+                } else {
+                  window.location.href = linkUrl;
+                }
                 return;
               }
 
@@ -100,6 +112,12 @@ document.addEventListener('click', function (event) {
                 }
               } else {
                 console.error('API request failed.');
+                // API 요청 실패 시 기존 동작 수행
+                if (isNewTab) {
+                  window.open(linkUrl, '_blank');
+                } else {
+                  window.location.href = linkUrl;
+                }
               }
             }
           );
