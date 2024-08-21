@@ -255,3 +255,18 @@ chrome.runtime.onMessage.addListener((message) => {
 
 // 스크립트 실행
 detectSiteAndExecute();
+
+chrome.storage.local.get('hazardous_texts', (data) => {
+  if (chrome.runtime.lastError) {
+    console.error('Error accessing storage:', chrome.runtime.lastError.message);
+  } else {
+    const hazardousTexts = data.hazardous_texts || [];
+    console.log('Stored hazardous_texts:', hazardousTexts);
+    console.log(`Total stored texts: ${hazardousTexts.length}`);
+
+    // 예를 들어, 첫 번째 항목을 출력해 봅니다.
+    if (hazardousTexts.length > 0) {
+      console.log('First stored text:', hazardousTexts[0]);
+    }
+  }
+});
