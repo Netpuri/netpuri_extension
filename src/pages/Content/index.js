@@ -92,9 +92,6 @@ document.addEventListener('click', function (event) {
                     );
                     return;
                   }
-                  console.log(
-                    `Link ${linkUrl} with threat type ${siteData.riskInfo} has been saved.`
-                  );
                 });
 
                 if (siteData.riskInfo !== 'none') {
@@ -130,26 +127,31 @@ document.addEventListener('click', function (event) {
 
 // 2. 백그라운드 스크립트에 텍스트 검사를 요청하는 함수
 
-function highlightTextAndStore(commentElement, hazardousTexts) {
+function highlightTextAndStore(
+  commentElement,
+  hazardousTexts,
+  selectedDetails
+) {
   const text = commentElement.innerText.trim();
-
   hazardousTexts.forEach((hazardousText) => {
-    if (text.includes(hazardousText.original_text)) {
+    if (
+      text.includes(hazardousText.original_text) &&
+      selectedDetails.includes(hazardousText.detail) // 선택된 유형과 일치하는 항목만 필터링
+    ) {
       let highlightColor = '';
       let textColor = '';
 
-      // 유형에 따른 색상 지정
       switch (hazardousText.type) {
         case '사회적 유해':
-          highlightColor = '#f5cfff'; // 예: 정치 관련
+          highlightColor = '#f5cfff';
           textColor = '#f5cfff';
           break;
         case '불법 및 위험':
-          highlightColor = '#ffd2d7'; // 예: 음란 또는 공격 관련
+          highlightColor = '#ffd2d7';
           textColor = '#ffd2d7';
           break;
         case '정신적 위험':
-          highlightColor = '#aaf2e1'; // 예: 우울 관련
+          highlightColor = '#aaf2e1';
           textColor = '#aaf2e1';
           break;
         default:
@@ -157,18 +159,15 @@ function highlightTextAndStore(commentElement, hazardousTexts) {
           textColor = '';
       }
 
-      // 하이라이트 적용
       if (highlightColor && textColor) {
         commentElement.style.backgroundColor = highlightColor;
         commentElement.style.color = textColor;
         commentElement.setAttribute('data-highlight-color', highlightColor);
         commentElement.setAttribute('data-text-color', textColor);
 
-        // 로컬 스토리지에 중복 제거 후 저장
         chrome.storage.local.get('hazardous_texts', (data) => {
           let hazardousTexts = data.hazardous_texts || [];
 
-          // 중복 여부 확인
           const isDuplicate = hazardousTexts.some(
             (storedText) =>
               storedText.original_text === hazardousText.original_text
@@ -177,7 +176,6 @@ function highlightTextAndStore(commentElement, hazardousTexts) {
           if (!isDuplicate) {
             hazardousTexts.push(hazardousText);
 
-            // 최대 200개의 텍스트만 유지
             if (hazardousTexts.length > 200) {
               hazardousTexts = hazardousTexts.slice(-200);
             }
@@ -201,7 +199,7 @@ function highlightTextAndStore(commentElement, hazardousTexts) {
 }
 
 // 댓글 변화를 감지하여 하이라이트 처리하는 함수
-function observeComments(selector) {
+function observeComments(selector, selectedDetails) {
   const targetNode = document.body;
   const config = { childList: true, subtree: true };
 
@@ -217,7 +215,11 @@ function observeComments(selector) {
                 response.hazardousTexts &&
                 response.hazardousTexts.length > 0
               ) {
-                highlightTextAndStore(comment, response.hazardousTexts);
+                highlightTextAndStore(
+                  comment,
+                  response.hazardousTexts,
+                  selectedDetails
+                );
               }
             }
           );
@@ -231,11 +233,15 @@ function observeComments(selector) {
 
 // 사이트에 맞춰 실행
 function detectSiteAndExecute() {
-  if (window.location.hostname.includes('naver.com')) {
-    observeComments('.u_cbox_text_wrap');
-  } else if (window.location.hostname.includes('youtube.com')) {
-    observeComments('#content-text');
-  }
+  chrome.storage.local.get(['selectedDetails'], (result) => {
+    const selectedDetails = result.selectedDetails || [];
+
+    if (window.location.hostname.includes('naver.com')) {
+      observeComments('.u_cbox_text_wrap', selectedDetails);
+    } else if (window.location.hostname.includes('youtube.com')) {
+      observeComments('#content-text', selectedDetails);
+    }
+  });
 }
 
 // 하이라이트 토글 기능
@@ -282,14 +288,5 @@ detectSiteAndExecute();
 chrome.storage.local.get('hazardous_texts', (data) => {
   if (chrome.runtime.lastError) {
     console.error('Error accessing storage:', chrome.runtime.lastError.message);
-  } else {
-    const hazardousTexts = data.hazardous_texts || [];
-    console.log('Stored hazardous_texts:', hazardousTexts);
-    console.log(`Total stored texts: ${hazardousTexts.length}`);
-
-    // 예를 들어, 첫 번째 항목을 출력해 봅니다.
-    if (hazardousTexts.length > 0) {
-      console.log('First stored text:', hazardousTexts[0]);
-    }
   }
 });
